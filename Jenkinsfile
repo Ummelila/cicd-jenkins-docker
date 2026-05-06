@@ -10,7 +10,7 @@ pipeline{
     stages{
         stage('Clone Repo'){
             steps{ 
-                git branch: 'main', url: 'https://github.com/Ummelila/cicd-docker.git'
+                git branch: 'main', url: 'https://github.com/Ummelila/cicd-jenkins-docker.git'
             }
         }
         stage('Build Docker Image'){
@@ -36,7 +36,7 @@ pipeline{
                 script{
                     emailext(
                         subject: 'NEST JS App Deployed Successfully on EC2',
-                        body: "Your NEST JS app is deployed!\nhttp://54.242.8.113:${PORT}/",
+                        body: "Your NEST JS app is deployed!\nhttp://107.21.80.161:${PORT}/",
                         to: "${EMAIL}"
                     )
                 }
