@@ -10,7 +10,7 @@ pipeline{
     stages{
         stage('Clone Repo'){
             steps{ 
-                git branch: 'main', url: 'https://github.com/Ummelila/CI-CD-Pipeline-Using-Jenkins-GitHub-Webhook-Ubuntu-AWS-EC2-Docker.git'
+                git branch: 'main', url: 'https://github.com/Ummelila/cicd-docker.git'
             }
         }
         stage('Build Docker Image'){
