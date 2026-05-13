@@ -28,7 +28,15 @@ export default tseslint.config(
     rules: {
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-floating-promises': 'warn',
+<<<<<<< HEAD
       '@typescript-eslint/no-unsafe-argument': 'warn'
     },
   },
 );
+=======
+      '@typescript-eslint/no-unsafe-argument': 'warn',
+      "prettier/prettier": ["error", { endOfLine: "auto" }],
+    },
+  },
+);
+>>>>>>> 51e75ef5f5a1f48bb8cd816c9ed81ac5c0c57157
