@@ -47,7 +47,7 @@ pipeline{
         failure {
             script{
                 emailext(
-                    subject: 'BUILD FAILED - NEST JS App',
+                    subject: 'BUILD FAILED-NEST JS App',
                     body: 'Jenkins build failed. Please check the logs',
                     to: 'ummelila01@gmail.com'
                 )
