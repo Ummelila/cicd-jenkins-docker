@@ -2,7 +2,7 @@ const express = require('express');
 const mysql = require('mysql2');
 const cors = require('cors');
 const path = require('path');
-require('dotenv').config();
+require('dotenv').config({path: '/var/lib/jenkins/workspace/cicd/three-tier-app/backend/.env'});
 
 const app = express();
 app.use(cors());
@@ -35,6 +35,46 @@ app.post('/register', (req, res) => {
       res.json({ message: 'Registered successfully!' });
     }
   );
+});
+
+app.get('/admin', (req, res) => {
+  db.query('SELECT * FROM users', (err, results) => {
+    if (err) throw err;
+    let html = `
+      <html>
+      <head>
+        <title>Admin Panel</title>
+        <style>
+          body { font-family: Arial; margin: 40px; }
+          table { width: 100%; border-collapse: collapse; }
+          th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
+          th { background: #4f8ef7; color: white; }
+          tr:nth-child(even) { background: #f2f2f2; }
+        </style>
+      </head>
+      <body>
+        <h2>Registered Users</h2>
+        <table>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Field of Interest</th>
+          </tr>
+    `;
+    results.forEach(user => {
+      html += `
+        <tr>
+          <td>${user.id}</td>
+          <td>${user.name}</td>
+          <td>${user.email}</td>
+          <td>${user.interest}</td>
+        </tr>
+      `;
+    });
+    html += `</table></body></html>`;
+    res.send(html);
+  });
 });
 
 app.listen(5000, () => console.log('Server running on port 5000'));
