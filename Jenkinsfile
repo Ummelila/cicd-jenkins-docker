@@ -45,7 +45,7 @@ pipeline{
         stage('Stop Previous App'){
             steps{
                 sh '''
-                    pkill -f "node.*index.js" || true
+                    pm2 delete three-tier-app || true
                     sleep 2
                 '''
             }
@@ -53,7 +53,7 @@ pipeline{
         stage('Start App'){
             steps{
                 sh '''
-                    nohup node ${WORKSPACE}/three-tier-app/backend/index.js > /tmp/app.log 2>&1 &
+                    pm2 start ${WORKSPACE}/three-tier-app/backend/index.js --name three-tier-app
                     sleep 3
                     echo "App started!"
                 '''
