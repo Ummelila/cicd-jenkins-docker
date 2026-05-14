@@ -72,7 +72,7 @@ pipeline{
         failure {
             script{
                 emailext(
-                    subject: 'BUILD FAILED - Three Tier App',
+                    subject: 'BUILD FAILED -Three Tier App',
                     body: 'Jenkins build failed. Please check the logs.',
                     to: 'ummelila01@gmail.com'
                 )
