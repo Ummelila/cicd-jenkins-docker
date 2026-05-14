@@ -63,7 +63,7 @@ pipeline{
             steps{
                 script{
                     emailext(
-                        subject: 'Three tier App Deployed Successfully on EC2',
+                        subject: 'Three Tier App Deployed Successfully on EC2',
                         body: "Your Three tier App is deployed!\nhttp://107.22.98.47:${PORT}/",
                         to: "${EMAIL}"
                     )
