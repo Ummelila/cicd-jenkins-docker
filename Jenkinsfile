@@ -35,24 +35,27 @@ pipeline{
         stage('Create ENV File'){
             steps{
                 sh '''
-                    echo "DB_HOST=127.0.0.1" > three-tier-app/backend/.env
-                    echo "DB_USER=root" >> three-tier-app/backend/.env
-                    echo "DB_PASS=root" >> three-tier-app/backend/.env
-                    echo "DB_NAME=formdb" >> three-tier-app/backend/.env
+                    echo "DB_HOST=127.0.0.1" > ${WORKSPACE}/three-tier-app/backend/.env
+                    echo "DB_USER=root" >> ${WORKSPACE}/three-tier-app/backend/.env
+                    echo "DB_PASS=root" >> ${WORKSPACE}/three-tier-app/backend/.env
+                    echo "DB_NAME=formdb" >> ${WORKSPACE}/three-tier-app/backend/.env
                 '''
             }
         }
         stage('Stop Previous App'){
             steps{
                 sh '''
-                    pkill -f "node three-tier-app/backend/index.js" || true
+                    pkill -f "node.*index.js" || true
+                    sleep 2
                 '''
             }
         }
         stage('Start App'){
             steps{
                 sh '''
-                    nohup node three-tier-app/backend/index.js &
+                    nohup node ${WORKSPACE}/three-tier-app/backend/index.js > /tmp/app.log 2>&1 &
+                    sleep 3
+                    echo "App started!"
                 '''
             }
         }
@@ -72,7 +75,7 @@ pipeline{
         failure {
             script{
                 emailext(
-                    subject: 'BUILD FAILED-Three Tier App',
+                    subject: 'BUILD FAILED - Three Tier App',
                     body: 'Jenkins build failed. Please check the logs.',
                     to: 'ummelila01@gmail.com'
                 )
