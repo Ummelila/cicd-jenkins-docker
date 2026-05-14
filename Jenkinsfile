@@ -45,7 +45,7 @@ pipeline{
         stage('Stop Previous App'){
             steps{
                 sh '''
-                    pm2 delete three-tier-app || true
+                    pkill -f "node.*index.js" || true
                     sleep 2
                 '''
             }
@@ -53,7 +53,8 @@ pipeline{
         stage('Start App'){
             steps{
                 sh '''
-                    pm2 start ${WORKSPACE}/three-tier-app/backend/index.js --name three-tier-app
+                    export JENKINS_NODE_COOKIE=dontKillMe
+                    nohup node ${WORKSPACE}/three-tier-app/backend/index.js > /tmp/app.log 2>&1 &
                     sleep 3
                     echo "App started!"
                 '''
