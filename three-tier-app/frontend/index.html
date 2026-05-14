@@ -80,6 +80,8 @@
   </div>
 
   <script>
+    const API = 'http://54.172.235.182:5000';
+
     async function submitForm() {
       const name = document.getElementById('name').value;
       const email = document.getElementById('email').value;
@@ -90,7 +92,7 @@
         return;
       }
 
-      const res = await fetch('http://localhost:5000/register', {
+      const res = await fetch(`${API}/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, interest })
