@@ -27,7 +27,7 @@ pipeline{
         stage('Install Backend Dependencies'){
             steps{
                 sh '''
-                    cd three-tier-app/backend
+                    cd ${WORKSPACE}/three-tier-app/backend
                     npm install
                 '''
             }
