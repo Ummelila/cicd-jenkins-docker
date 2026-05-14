@@ -28,7 +28,7 @@ pipeline{
             steps{
                 sh '''
                     cd ${WORKSPACE}/three-tier-app/backend
-                    npm install
+                    npm install --no-fund --no-audit
                 '''
             }
         }
